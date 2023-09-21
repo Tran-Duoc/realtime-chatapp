@@ -1,8 +1,8 @@
 import express from 'express'
-import userRoute from './user/user.route'
-import conversationRoute from './conversation/conversation.model'
-import personalMessageRoute from './messages/personal.route'
-import groupMessageRoute from './messages/group.route'
+import userRoute from './user.route'
+import conversationRoute from './conversation.model'
+import personalMessageRoute from './personal.route'
+import groupMessageRoute from './group.route'
 
 const route = express.Router()
 
