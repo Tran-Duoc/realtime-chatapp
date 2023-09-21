@@ -28,7 +28,7 @@ export const loginUser = async (req: Request, res: Response) => {
     } else {
       const compare_password = await comparePassword(password, exitUser.password)
       if (!compare_password) {
-        return BadRequest(res, 'password invalid!')
+        return BadRequest(res, 'password invalid!!')
       } else {
         Login(res, exitUser)
       }
