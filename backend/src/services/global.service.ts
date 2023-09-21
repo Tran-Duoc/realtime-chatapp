@@ -16,10 +16,6 @@ export const find = async <T extends keyof User>(res: Response, entity?: T) => {
 }
 
 export const find_one = async (res: Response, argument: object) => {
-  try {
-    const user = await userSchema.findOne(argument)
-    return Ok(res, user)
-  } catch (error) {
-    return ServerError(res, error)
-  }
+  const user = await userSchema.findOne(argument)
+  return user
 }

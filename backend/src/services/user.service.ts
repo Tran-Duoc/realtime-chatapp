@@ -3,7 +3,15 @@ import { BadRequest, Created, NotFound, Ok, ServerError } from '~/libs/errorHand
 import { userSchema } from '~/models/user.model'
 import { exit } from './global.service'
 
-export const save = async (res: Response, data: User) => {
+export const Login = async (res: Response, data: User) => {
+  try {
+    Ok(res, data)
+  } catch (error) {
+    return ServerError(res, error)
+  }
+}
+
+export const Register = async (res: Response, data: User) => {
   try {
     const exitUser = await exit({ email: data.email })
     if (exitUser) {
@@ -19,7 +27,7 @@ export const save = async (res: Response, data: User) => {
     return ServerError(res, error)
   }
 }
-export const update = async (res: Response, id: string, data: User) => {
+export const Update = async (res: Response, id: string, data: User) => {
   try {
     await userSchema.findByIdAndUpdate({ _id: id }, data, { new: true })
     return Ok(res, data)
@@ -27,7 +35,7 @@ export const update = async (res: Response, id: string, data: User) => {
     return ServerError(res, error)
   }
 }
-export const deleted = async (res: Response, id: string) => {
+export const Delete = async (res: Response, id: string) => {
   try {
     await userSchema.findByIdAndDelete({ _id: id })
     return Ok(res, 'Remove user is successfully')
