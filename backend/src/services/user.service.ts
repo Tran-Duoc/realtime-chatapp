@@ -1,16 +1,9 @@
 import { Response } from 'express'
-import { Created, NotFound, Ok, ServerError } from '~/libs/errorHandler'
+import { BadRequest, Created, NotFound, Ok, ServerError } from '~/libs/errorHandler'
 import { userSchema } from '~/models/user.model'
 
-export const exitUser = async (res: Response, _id: string) => {
-  try {
-    const user = find_one(res, _id)
-    if (!user) {
-      return NotFound(res)
-    }
-  } catch (error) {
-    return ServerError(res, error)
-  }
+export const exit = (res: Response, argument: object) => {
+  return userSchema.findOne(argument)
 }
 
 export const find = async <T extends keyof User>(res: Response, entity?: T) => {
@@ -22,9 +15,9 @@ export const find = async <T extends keyof User>(res: Response, entity?: T) => {
   }
 }
 
-export const find_one = async (res: Response, argument: string) => {
+export const find_one = async (res: Response, argument: object) => {
   try {
-    const user = await userSchema.findOne({ argument })
+    const user = await userSchema.findOne(argument)
     return Ok(res, user)
   } catch (error) {
     return ServerError(res, error)
@@ -32,11 +25,16 @@ export const find_one = async (res: Response, argument: string) => {
 }
 export const save = async (res: Response, data: User) => {
   try {
-    const newUser = new userSchema({
-      ...data
-    })
-    await newUser.save()
-    return Created(res, data)
+    const exitUser = await exit(res, { email: data.email })
+    if (exitUser) {
+      return BadRequest(res, 'user already exit ')
+    } else {
+      const newUser = new userSchema({
+        ...data
+      })
+      await newUser.save()
+      return Created(res, newUser)
+    }
   } catch (error) {
     return ServerError(res, error)
   }
