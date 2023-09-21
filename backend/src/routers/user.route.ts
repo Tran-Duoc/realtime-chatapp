@@ -1,10 +1,12 @@
 import express from 'express'
-import { registerUser } from '~/controllers/user.controller'
+import { loginUser, registerUser } from '~/controllers/user.controller'
 import { Validation } from '~/middlewares/validation'
 import { userSchema } from '~/validations/userSchema'
 
 const route = express.Router()
 
-route.post('/', Validation(userSchema), registerUser)
+route.post('/register', Validation(userSchema), registerUser)
+
+route.post('/login', loginUser)
 
 export default route

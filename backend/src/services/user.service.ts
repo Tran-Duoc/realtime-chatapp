@@ -1,31 +1,19 @@
 import { Response } from 'express'
 import { BadRequest, Created, NotFound, Ok, ServerError } from '~/libs/errorHandler'
 import { userSchema } from '~/models/user.model'
+import { exit } from './global.service'
 
-export const exit = (res: Response, argument: object) => {
-  return userSchema.findOne(argument)
-}
-
-export const find = async <T extends keyof User>(res: Response, entity?: T) => {
+export const Login = async (res: Response, data: User) => {
   try {
-    const user = await userSchema.find({ entity })
-    return Ok(res, user)
+    Ok(res, data)
   } catch (error) {
     return ServerError(res, error)
   }
 }
 
-export const find_one = async (res: Response, argument: object) => {
+export const Register = async (res: Response, data: User) => {
   try {
-    const user = await userSchema.findOne(argument)
-    return Ok(res, user)
-  } catch (error) {
-    return ServerError(res, error)
-  }
-}
-export const save = async (res: Response, data: User) => {
-  try {
-    const exitUser = await exit(res, { email: data.email })
+    const exitUser = await exit({ email: data.email })
     if (exitUser) {
       return BadRequest(res, 'user already exit ')
     } else {
@@ -39,7 +27,7 @@ export const save = async (res: Response, data: User) => {
     return ServerError(res, error)
   }
 }
-export const update = async (res: Response, id: string, data: User) => {
+export const Update = async (res: Response, id: string, data: User) => {
   try {
     await userSchema.findByIdAndUpdate({ _id: id }, data, { new: true })
     return Ok(res, data)
@@ -47,7 +35,7 @@ export const update = async (res: Response, id: string, data: User) => {
     return ServerError(res, error)
   }
 }
-export const deleted = async (res: Response, id: string) => {
+export const Delete = async (res: Response, id: string) => {
   try {
     await userSchema.findByIdAndDelete({ _id: id })
     return Ok(res, 'Remove user is successfully')
