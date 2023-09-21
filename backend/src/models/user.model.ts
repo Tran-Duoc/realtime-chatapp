@@ -6,8 +6,7 @@ export const userSchema = model(
     {
       name: {
         type: String,
-        required: true,
-        unique: true
+        required: true
       },
       email: {
         type: String,
