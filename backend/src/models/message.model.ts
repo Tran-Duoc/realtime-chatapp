@@ -6,7 +6,13 @@ export const messageSchema = model(
     {
       conversation: { type: Schema.Types.ObjectId, ref: 'Conversation' },
       user: { type: Schema.Types.ObjectId, ref: 'User' },
-      content: String
+      content: String,
+      type: {
+        type: String,
+        enum: ['text', 'audio', 'image'],
+        required: true
+      },
+      fileUrl: String
     },
     {
       timestamps: true
