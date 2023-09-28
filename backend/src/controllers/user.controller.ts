@@ -1,6 +1,6 @@
 import { Response, Request } from 'express'
 import { BadRequest, NotFound, Ok, ServerError } from '~/libs/errorHandler'
-import { comparePassword, hashPassword } from '~/libs/utils'
+import { SignToken, comparePassword, hashPassword } from '~/libs/utils'
 import { exit } from '~/services/global.service'
 import { Login, Register } from '~/services/user.service'
 
@@ -30,10 +30,13 @@ export const loginUser = async (req: Request, res: Response) => {
       if (!compare_password) {
         return BadRequest(res, 'password invalid!!')
       } else {
-        Login(res, exitUser)
+        const access_token = SignToken({ _id: exitUser?._id.toString() })
+        Login(res, { user: exitUser, access_token })
       }
     }
   } catch (error) {
+    console.log(error)
+
     return ServerError(res, error)
   }
 }

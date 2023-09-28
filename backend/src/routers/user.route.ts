@@ -6,7 +6,6 @@ import { userSchema } from '~/validations/userSchema'
 const route = express.Router()
 
 route.post('/register', Validation(userSchema), registerUser)
-
 route.post('/login', loginUser)
 
 export default route
