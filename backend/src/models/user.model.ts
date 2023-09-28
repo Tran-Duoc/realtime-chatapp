@@ -28,6 +28,10 @@ export const userSchema = model(
       provider: {
         type: String,
         default: ''
+      },
+      refresh_token: {
+        type: String,
+        default: ''
       }
     },
     {

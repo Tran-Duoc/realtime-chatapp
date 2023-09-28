@@ -7,5 +7,6 @@ const route = express.Router()
 
 route.post('/register', Validation(userSchema), registerUser)
 route.post('/login', loginUser)
+route.post('/refresh_token')
 
 export default route

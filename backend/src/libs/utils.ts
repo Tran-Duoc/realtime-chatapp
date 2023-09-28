@@ -16,6 +16,11 @@ export const SignToken = (payload: object) => {
   return sign(payload, secret_key, { expiresIn: '1d' })
 }
 
+export const SignRefreshToken = (payload: object) => {
+  const secret_key = process.env.TOKEN_SECRET_KEY as string
+  return sign(payload, secret_key)
+}
+
 export const DecodeToken = (token: string) => {
   const secret_key = process.env.TOKEN_SECRET_KEY as string
   return verify(token, secret_key)
