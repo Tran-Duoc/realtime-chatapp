@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose'
+import { model, Schema } from 'mongoose'
 
-export const userSchema = model(
+export const friendListSchemas = model(
   'FriendList',
   new Schema(
     {

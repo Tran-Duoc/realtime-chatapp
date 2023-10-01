@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Response, Request } from 'express'
-import { BadRequest, NotFound, Ok, ServerError, Unauthorize } from '~/libs/errorHandler'
-import { DecodeToken, SignToken, comparePassword, hashPassword } from '~/libs/utils'
+import { Request, Response } from 'express'
 
+import { BadRequest, NotFound, Ok, ServerError, Unauthorize } from '~/libs/errorHandler'
+import { comparePassword, DecodeToken, hashPassword, SignToken } from '~/libs/utils'
 import { exit } from '~/services/global.service'
 import { Login, Register } from '~/services/user.service'
 
