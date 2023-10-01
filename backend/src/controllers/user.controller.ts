@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Response, Request } from 'express'
 import { BadRequest, NotFound, Ok, ServerError, Unauthorize } from '~/libs/errorHandler'
 import { DecodeToken, SignToken, comparePassword, hashPassword } from '~/libs/utils'
@@ -31,8 +32,8 @@ export const loginUser = async (req: Request, res: Response) => {
       if (!compare_password) {
         return BadRequest(res, 'password invalid!!')
       } else {
-        const access_token = SignToken({ _id: exitUser?._id.toString(), email: exitUser.email })
-        const refresh_token = SignToken({ _id: exitUser?._id.toString(), email: exitUser.email })
+        const access_token = SignToken({ _id: exitUser?._id.toString(), phone: exitUser.phone })
+        const refresh_token = SignToken({ _id: exitUser?._id.toString(), phone: exitUser.phone })
         res.cookie('refresh_token', refresh_token, { httpOnly: true })
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore

@@ -13,11 +13,13 @@ export const comparePassword = async (currentPassword: string, passwordEncrypt: 
 
 export const SignToken = (payload: object) => {
   const secret_key = process.env.TOKEN_SECRET_KEY as string
+  console.log(secret_key)
   return sign(payload, secret_key, { expiresIn: '1d' })
 }
 
 export const SignRefreshToken = (payload: object) => {
   const secret_key = process.env.TOKEN_SECRET_KEY as string
+  console.log(secret_key)
   return sign(payload, secret_key)
 }
 
