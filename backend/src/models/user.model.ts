@@ -8,7 +8,7 @@ export const userSchema = model(
         type: String,
         required: true
       },
-      email: {
+      phone: {
         type: String,
         required: true,
         unique: true
