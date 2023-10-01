@@ -5,10 +5,10 @@ import { UserSchemaType } from '~/validations/userSchema'
 
 export const Validation = (schema: AnySchema) => async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, name, password }: UserSchemaType = req.body
+    const { phone, name, password }: UserSchemaType = req.body
     await schema.validate({
       name: name,
-      email: email,
+      phone: phone,
       password: password
     } as UserSchemaType)
 
