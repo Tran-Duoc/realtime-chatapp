@@ -13,7 +13,7 @@ export const Login = async (res: Response, data: any) => {
 
 export const Register = async (res: Response, data: User) => {
   try {
-    const exitUser = await exit({ email: data.email })
+    const exitUser = await exit({ phone: data.phone })
     if (exitUser) {
       return BadRequest(res, 'user already exit ')
     } else {

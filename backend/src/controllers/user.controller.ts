@@ -7,11 +7,11 @@ import { Login, Register } from '~/services/user.service'
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
-    const { name, email, password } = req.body
+    const { name, phone, password } = req.body
     const hash_password = await hashPassword(password)
     const data = {
       name: name,
-      email: email,
+      phone: phone,
       password: hash_password
     }
     Register(res, data)
@@ -22,8 +22,8 @@ export const registerUser = async (req: Request, res: Response) => {
 
 export const loginUser = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body
-    const exitUser = await exit({ email })
+    const { phone, password } = req.body
+    const exitUser = await exit({ phone })
     if (!exitUser) {
       return BadRequest(res, 'user does not exit!!')
     } else {
