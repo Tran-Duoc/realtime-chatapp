@@ -22,6 +22,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/DarkModeButton';
 import Image from 'next/image';
+import { Input } from '@/components/ui/input';
+import AddFriendModel from '@/components/AddFriendModel';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { changeState } from '@/redux/stateSlice';
 
 const navApi = [
   {
@@ -46,6 +51,13 @@ const navApi = [
 
 const AsideNav = () => {
   const pathName = usePathname();
+  const stateOpenModel = useSelector((state: RootState) => state.state.state);
+  const dispatch = useDispatch();
+
+  const handleOpenModel = () => {
+    dispatch(changeState(true));
+  };
+
   return (
     <div className='flex h-full border-r-[1px] shadow-xl'>
       <section className='flex flex-col items-center justify-between bg-[#0091ff]  pt-5 pb-10 text-white'>
@@ -89,20 +101,17 @@ const AsideNav = () => {
               padding: '5px',
             }}
           >
-            <UserPlus2 />
+            <UserPlus2 onClick={handleOpenModel} />
           </Button>
           <Button variant={'ghost'}>
             <Blocks />
           </Button>
         </div>
+
         <div className='block px-2'>
-          <input
-            type='text'
-            placeholder='this is title'
-            className='block w-full'
-          />
+          <Input placeholder='tìm kiếm ' />
         </div>
-        <div className='f-full flex-1 overflow-y-clip'>
+        <div className='f-full flex-1 overflow-y-clip mt-5'>
           <div className='flex items-center justify-start gap-5 flex-shrink bg-red-500 py-3 px-2'>
             <Image
               src={'https://source.unsplash.com/random'}
@@ -117,6 +126,7 @@ const AsideNav = () => {
           </div>
         </div>
       </section>
+      {stateOpenModel && <AddFriendModel />}
     </div>
   );
 };
