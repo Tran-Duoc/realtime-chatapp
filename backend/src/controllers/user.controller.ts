@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Response, Request } from 'express'
-import { BadRequest, NotFound, Ok, ServerError } from '~/libs/errorHandler'
-import { comparePassword, hashPassword } from '~/libs/utils'
+import { BadRequest, NotFound, Ok, ServerError, Unauthorize } from '~/libs/errorHandler'
+import { DecodeToken, SignToken, comparePassword, hashPassword } from '~/libs/utils'
+
 import { exit } from '~/services/global.service'
 import { Login, Register } from '~/services/user.service'
 
@@ -30,7 +32,32 @@ export const loginUser = async (req: Request, res: Response) => {
       if (!compare_password) {
         return BadRequest(res, 'password invalid!!')
       } else {
-        Login(res, exitUser)
+        const access_token = SignToken({ _id: exitUser?._id.toString(), phone: exitUser.phone })
+        const refresh_token = SignToken({ _id: exitUser?._id.toString(), phone: exitUser.phone })
+        res.cookie('refresh_token', refresh_token, { httpOnly: true })
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const { password, ...others } = exitUser._doc
+
+        Login(res, { user: others, access_token })
+      }
+    }
+  } catch (error) {
+    return ServerError(res, error)
+  }
+}
+
+export const refreshToken = async (req: Request, res: Response) => {
+  try {
+    const refresh_token = req.cookies.refresh_token
+    if (!refresh_token) {
+      return Unauthorize(res)
+    } else {
+      const decoded = DecodeToken(refresh_token)
+      if (!decoded) {
+        return Unauthorize(res)
+      } else {
+        console.log(decoded)
       }
     }
   } catch (error) {

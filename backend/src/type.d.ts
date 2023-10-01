@@ -6,3 +6,9 @@ interface User {
   accountId?: string
   provider?: string
 }
+
+interface Error {
+  name: string
+  message: string
+  stack?: string
+}

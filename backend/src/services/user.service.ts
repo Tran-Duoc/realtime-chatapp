@@ -3,7 +3,7 @@ import { BadRequest, Created, NotFound, Ok, ServerError } from '~/libs/errorHand
 import { userSchema } from '~/models/user.model'
 import { exit } from './global.service'
 
-export const Login = async (res: Response, data: User) => {
+export const Login = async (res: Response, data: any) => {
   try {
     Ok(res, data)
   } catch (error) {
