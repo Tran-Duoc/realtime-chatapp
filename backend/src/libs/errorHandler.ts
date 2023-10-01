@@ -7,9 +7,7 @@ const ResponseData = <T>(res: Response, statusCode: number, data: T) => {
 export const ServerError = <T>(res: Response, error: T) => {
   return ResponseData(res, 500, {
     success: false,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    error: error.message
+    error: error
   })
 }
 

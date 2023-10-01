@@ -1,4 +1,5 @@
 import express from 'express'
+
 import { loginUser, registerUser } from '~/controllers/user.controller'
 import { Validation } from '~/middlewares/validation'
 import { userSchema } from '~/validations/userSchema'

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+
 const mongoose_uri = process.env.MONGOOSE_URI as string
 
 export const ConnectDataBase = async () => {

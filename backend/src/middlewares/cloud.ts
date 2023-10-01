@@ -1,8 +1,8 @@
-import multer from 'multer'
-import { CloudinaryStorage } from 'multer-storage-cloudinary'
+import { v2 as cloudinary } from 'cloudinary'
 import { Request } from 'express'
 import { ParamsDictionary } from 'express-serve-static-core'
-import { v2 as cloudinary } from 'cloudinary'
+import multer from 'multer'
+import { CloudinaryStorage } from 'multer-storage-cloudinary'
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
