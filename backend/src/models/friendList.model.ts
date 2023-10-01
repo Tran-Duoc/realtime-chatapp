@@ -4,14 +4,21 @@ export const userSchema = model(
   'FriendList',
   new Schema(
     {
-      friend_list_await_accept: {
-        type: Array(Schema.Types.ObjectId),
+      type: {
+        type: String,
+        enum: ['accept', 'wait-accept'],
+        require: true
+      },
+      user: {
+        type: Schema.Types.ObjectId,
         ref: 'User'
       },
-      friend_list_accept: {
-        type: Array(Schema.Types.ObjectId),
-        ref: 'User'
-      }
+      friends: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'User'
+        }
+      ]
     },
     {
       timestamps: true
